@@ -6,7 +6,7 @@ class CLI
 
     def start 
         puts ""
-        puts "Welcome to my this horrible app"
+        puts "Welcome to Meal Finder!"
         puts ""
        puts "Search for a meal by ingredient"
        puts ""
@@ -17,7 +17,15 @@ class CLI
        meals = Meal.all 
        print_meals(meals) 
        puts ""
+       puts "Type a number listed to see more details or type 'exit' to exit"
+       puts ""
+       inp = gets.strip.downcase 
+       while inp != 'exit' do 
+       meal = Meal.find_by_ingredient(@ingredient)[inp.to_i - 1]
+       API.get_meal_details(meal)
+     
     end 
+end 
 
     def print_meals(ml)
         puts ""
