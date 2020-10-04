@@ -7,25 +7,20 @@ class CLI
     def start 
         puts ""
         puts "Welcome to Meal Finder!"
-        puts ""
-       puts "Search for a meal by ingredient"
-       puts ""
-       @ingredient = gets.strip.downcase 
-       puts ""
-       API.fetch_meals(@ingredient) 
-       puts ""
-       meals = Meal.all 
-       print_meals(meals) 
-      prompt 
+        prompt_ingredient 
+        prompt 
        inp = gets.strip.downcase 
        while inp != 'exit' do 
-        if inp == 'list'
-            binding.pry 
-            print_drinks(Ingredient.find_by_ingredient(@ingredient).drinks)
-        else 
+        if inp == 'list' 
+            print_meals(Ingredient.find_by_ingredient(@ingredient).meals)
+        elsif inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
         meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
-        API.get_meal_details(meal)
-        print_meal(meal)  
+       API.get_meal_details(meal)
+       print_meal(meal)  
+    elsif inp == 'ingredient'
+        prompt_ingredient
+        else 
+            puts "Please try again"
     end 
     prompt 
     inp = gets.strip.downcase  
@@ -55,11 +50,29 @@ end
 
 def prompt 
     puts ""
-    puts "Type a number listed to se e more details."
+    puts "Type a number listed to see more details."
     puts "OR type 'ingredient' to search for a new ingredient"
     puts "OR type 'list' to see the list again"
     puts "OR type 'exit' to exit"
     puts ""
 end 
+
+def prompt_ingredient 
+    puts ""
+    puts "Search for a meal by ingredient"
+    puts ""
+    @ingredient = gets.strip.downcase 
+    puts ""
+    API.fetch_meals(@ingredient) 
+    puts ""
+    meals = Ingredient.find_by_ingredient(@ingredient).meals
+    print_meals(meals) 
+end 
+
+
+
+#def prompt_picture 
+#end 
+
 
 end 
