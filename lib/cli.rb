@@ -3,7 +3,7 @@
 #control flow of program 
 
 class CLI 
-    
+
 def start 
     puts ""
     puts "Welcome to Meal Finder!"
@@ -12,12 +12,10 @@ def start
     inp = gets.strip.downcase 
     if inp == 'ingredient'
     prompt_ingredient
-    prompt
-    if inp == 'category'
-    prompt_category 
-    prompt 
+   # if inp == 'category'
+    #prompt_category 
     while inp != 'exit' do 
-        if inp == 'list'
+        if inp == 'ingredient'
             print_meals(Ingredient.find_by_ingredient(@ingredient).meals)
         elsif inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
             meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
@@ -29,6 +27,8 @@ def start
             end 
         elsif inp == 'ingredient'
             prompt_ingredient
+        elsif inp == 'category'
+              prompt_category 
         else 
             puts "I do not understand - please try again."
         end
@@ -39,10 +39,7 @@ def start
 
 end
 end 
-end 
-end 
-
-
+#end 
 
     def print_meals(ml)
         puts ""
@@ -74,7 +71,7 @@ def prompt
     puts "Type a number listed to see more details."
     puts "OR type 'ingredient' to search for a new ingredient"
     puts "OR type 'category' to search by category."
-    puts "OR type 'list' to see the list again"
+   # puts "OR type 'list' to see the list again"
     puts "OR type 'exit' to exit"
     puts ""
 end 
