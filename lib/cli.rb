@@ -16,15 +16,21 @@ class CLI
        puts ""
        meals = Meal.all 
        print_meals(meals) 
-       puts ""
-       puts "Type a number listed to see more details or type 'exit' to exit"
-       puts ""
+      prompt 
        inp = gets.strip.downcase 
        while inp != 'exit' do 
-       meal = Meal.find_by_ingredient(@ingredient)[inp.to_i - 1]
-       API.get_meal_details(meal)
-     
+        if inp == 'list'
+            binding.pry 
+            print_drinks(Ingredient.find_by_ingredient(@ingredient).drinks)
+        else 
+        meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
+        API.get_meal_details(meal)
+        print_meal(meal)  
     end 
+    prompt 
+    inp = gets.strip.downcase  
+end 
+    puts "Goodbye!"
 end 
 
     def print_meals(ml)
@@ -36,5 +42,24 @@ end
     end 
       
     end 
+
+def print_meal(meal) 
+    puts ""
+    puts "#{meal.name} Recipe:"
+    puts "---------------"
+    puts "#{meal.instructions}"
+    puts "---------------"
+    puts ""
+
+end 
+
+def prompt 
+    puts ""
+    puts "Type a number listed to se e more details."
+    puts "OR type 'ingredient' to search for a new ingredient"
+    puts "OR type 'list' to see the list again"
+    puts "OR type 'exit' to exit"
+    puts ""
+end 
 
 end 
