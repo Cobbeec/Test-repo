@@ -2,7 +2,7 @@
 #keeps track of charities and turn our responses into objects 
 
 class Meal  
-    attr_accessor :name, :meal_id, :ingredient , :instructions , :ingredients , :measures 
+    attr_accessor :name, :meal_id, :ingredient , :instructions , :ingredients , :measures , :category
     @@all = []
     
    def initialize(name:, meal_id:, ingredient:)
@@ -18,9 +18,9 @@ class Meal
         @@all 
     end 
 
-    # def self.find_by_ingredient(ingredient)
-    #     @@all.select{|m| ingredient == ingredient }
-    # end 
+    def self.find(meal)
+        @@all.select {|m| m == meal}
+     end 
 
 end  
 

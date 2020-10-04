@@ -23,7 +23,12 @@ def self.get_meal_details(meal)
     response = Net::HTTP.get(uri)
     data = JSON.parse(response)["meals"][0]
     meal.instructions = data["strInstructions"]
-    #binding.pry 
+    meal.category = data[ "strCategory"]
+    data.keys.each do |k|
+        meal.ingredients << data[k] if (k.include?("Ingredient")) && data[k] 
+        meal.measures << data[k] if (k.include?("Measure")) && data[k] 
+    end 
+    binding.pry 
 
 end 
 

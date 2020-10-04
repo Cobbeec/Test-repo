@@ -15,8 +15,12 @@ class CLI
             print_meals(Ingredient.find_by_ingredient(@ingredient).meals)
         elsif inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
         meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
-       API.get_meal_details(meal)
-       print_meal(meal)  
+       if !meal.instructions  
+        API.get_meal_details(meal)
+        print_meal(meal)  
+       else 
+        print_meal(Meal.find(meal)[0])
+       end 
     elsif inp == 'ingredient'
         prompt_ingredient
         else 
@@ -44,8 +48,13 @@ def print_meal(meal)
     puts "---------------"
     puts "#{meal.instructions}"
     puts "---------------"
-    puts ""
-
+    #binding.pry 
+    meal.ingredients.each_with_index do | ing, index | 
+    puts "#{ing} - #{meal.measures[index]}"
+end 
+          puts "-------------------"
+          puts "#{meal.instructions}"
+          puts ""
 end 
 
 def prompt 
@@ -65,7 +74,7 @@ def prompt_ingredient
     puts ""
     API.fetch_meals(@ingredient) 
     puts ""
-    meals = Ingredient.find_by_ingredient(@ingredient).meals
+    meals = Ingredient.find_by_ingredient(@ingredient).meals #prints meals belonging to ingredient you just found
     print_meals(meals) 
 end 
 
