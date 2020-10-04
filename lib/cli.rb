@@ -12,8 +12,8 @@ def start
     inp = gets.strip.downcase 
     if inp == 'ingredient'
     prompt_ingredient
-   # if inp == 'category'
-    #prompt_category 
+    elsif inp == 'category'
+    prompt_category 
     while inp != 'exit' do 
         if inp == 'ingredient'
             print_meals(Ingredient.find_by_ingredient(@ingredient).meals)
@@ -90,14 +90,14 @@ end
 
 def prompt_category 
     puts ""
-    puts "Search for a meal by category" 
+    puts "Welcome to search for a meal by category" 
     puts ""
     @category = gets.strip.downcase 
     puts ""
     API.fetch_meals(@category)
     puts ""
-    meals = Category.find_by_ingredient(@category).meals
-    print_meals(meals) 
+    #meals = Category.find_by_ingredient(@category).meals
+    #print_meals(meals) 
 end 
 
 

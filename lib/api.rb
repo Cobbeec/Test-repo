@@ -16,6 +16,19 @@ def self.fetch_meals(ingredient)
     end 
     #binding.pry 
 end 
+
+def self.fetch_meals(category)
+     url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=#{category}"
+     uri = URI(url) 
+      response = Net::HTTP.get(uri)
+      categories = JSON.parse(response)["categories"]
+      new_category = Category.new(category) 
+       meals.each do |d| 
+      new_category.meals << new_category 
+       end 
+     #binding.pry 
+ end 
+
      
 def self.get_meal_details(meal) 
     url =  "https://www.themealdb.com/api/json/v1/1/lookup.php?i=#{meal.meal_id}"
