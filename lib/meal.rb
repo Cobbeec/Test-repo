@@ -5,7 +5,7 @@ class Meal
     attr_accessor :name, :meal_id, :ingredient , :instructions , :ingredients , :measures , :category , :picture 
     @@all = []
     
-   def initialize(name:, meal_id:, ingredient:, category:)
+   def initialize(name:, meal_id:, ingredient: nil, category: nil)
      @name = name 
      @meal_id = meal_id  
      @ingredients = []
@@ -25,4 +25,3 @@ class Meal
 
 end  
 
-#you had an m. before ingredient before 

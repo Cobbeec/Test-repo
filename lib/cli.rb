@@ -3,43 +3,40 @@
 #control flow of program 
 
 class CLI 
-
-def start 
-    puts ""
-    puts "Welcome to Meal Finder!"
-    puts "Please enter 'ingredient' to search by ingredient"
-    puts "Or enter 'category' to search by category"
-    inp = gets.strip.downcase 
-    if inp == 'ingredient'
-    prompt_ingredient
-    elsif inp == 'category'
-    prompt_category 
-    while inp != 'exit' do 
-        if inp == 'ingredient'
-            print_meals(Ingredient.find_by_ingredient(@ingredient).meals)
-        elsif inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
-            meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
-            if !meal.instructions
-                API.get_meal_details(meal)
-                print_meal(meal)
-            else
-                print_meal(Meal.find(meal)[0])
+    def start 
+        puts ""
+        puts "Welcome to My Recipe App!"
+        puts "Please enter 'ingredient' to search by ingredient"
+        puts "Or enter 'category' to search by category"
+        inp = gets.strip.downcase 
+        # if inp == 'ingredient' #move inside while loop 
+        while inp != 'exit' do 
+            if inp == 'ingredient'
+                print_meals(Ingredient.find_by_ingredient(@ingredient).meals)
+            elsif inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
+                meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
+            elsif !meal.instructions
+                    API.get_meal_details(meal)
+                    print_meal(meal)
+            elsif   
+                    print_meal(Meal.find(meal)[0])
+            elsif inp == 'category'
+                print_meals(Category.find_by_ingredient(@category).meals)
+            elsif inp.to_i > 0 && inp.to_i <= Category.find_by_ingredient(@category).meals.length
+                meal = Category.find_by_ingredient(@category).meals[inp.to_i - 1]
+            elsif !meal.instructions
+                    API.get_meal_details(meal)
+                    print_meal(meal)
             end 
-        elsif inp == 'ingredient'
-            prompt_ingredient
-        elsif inp == 'category'
-              prompt_category 
-        else 
-            puts "I do not understand - please try again."
+                # elsif 
+                #   (inp != 'ingredient') || (inp != 'category') || (inp != 'list')    
+                # puts "Please try again."
+            # end
         end
-        prompt
-        inp = gets.strip.downcase
+        puts "Goodbye!"
+    
     end
-    puts "Goodbye!"
-
-end
-end 
-#end 
+  
 
     def print_meals(ml)
         puts ""
@@ -89,14 +86,16 @@ def prompt_ingredient
 end 
 
 def prompt_category 
-    puts ""
-    puts "Welcome to search for a meal by category" 
+      puts ""
+      puts "Welcome to search for a meal by category! Enter a category."
     puts ""
     @category = gets.strip.downcase 
     puts ""
-    API.fetch_meals(@category)
+    #binding.pry 
+   API.fetch_meals_category(@category)
     puts ""
-    #meals = Category.find_by_ingredient(@category).meals
+   # binding.pry 
+    meals = Category.find_by_category(@category).meals
     #print_meals(meals) 
 end 
 

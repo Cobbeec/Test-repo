@@ -17,17 +17,19 @@ def self.fetch_meals(ingredient)
     #binding.pry 
 end 
 
-def self.fetch_meals(category)
+def self.fetch_meals_category(category)
      url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=#{category}"
-     uri = URI(url) 
-      response = Net::HTTP.get(uri)
-      categories = JSON.parse(response)["categories"]
-      new_category = Category.new(category) 
-       meals.each do |d| 
-      new_category.meals << new_category 
-       end 
-     #binding.pry 
- end 
+      uri = URI(url) 
+       response = Net::HTTP.get(uri)
+       meals = JSON.parse(response)["meals"]
+    #    binding.pry 
+       new_category = Category.new(category) 
+        meals.each do |m| 
+        new_meal = Meal.new(name: m["strMeal"] , meal_id: m["idMeal"], category: category)
+        new_category.meals << new_meal 
+          end 
+#          binding.pry 
+  end 
 
      
 def self.get_meal_details(meal) 
