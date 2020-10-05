@@ -2,7 +2,7 @@
 #keeps track of charities and turn our responses into objects 
 
 class Meal  
-    attr_accessor :name, :meal_id, :ingredient , :instructions , :ingredients , :measures , :category , :picture 
+    attr_accessor :name, :meal_id, :ingredient , :instructions , :ingredients , :measures , :category 
     @@all = []
     
    def initialize(name:, meal_id:, ingredient: nil, category: nil)
