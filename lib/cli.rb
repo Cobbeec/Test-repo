@@ -8,6 +8,7 @@ class CLI
         puts "Welcome to My Recipe App!"
         puts "Please enter 'ingredient' to search by ingredient"
         puts "Or enter 'category' to search by category"
+        puts "OR enter 'exit' to exit"
         inp = gets.strip.downcase
         while inp != 'exit' do 
             if inp == 'ingredient'
@@ -15,7 +16,7 @@ class CLI
             elsif inp =='category'
                 prompt_category 
             elsif inp == 'list'
-                 print_meals(Ingredient.find_by_ingredient(@ingredient).meals)
+                 print_meals(Ingredient.find_by_ingredient(@ingredient).meals) 
              elsif inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
                  meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
                if !meal.instructions
@@ -84,35 +85,34 @@ def prompt_ingredient
     print_meals(meals)
 end 
 
-def prompt_category 
-      puts ""
-      puts "Welcome to search for a meal by category! Enter a category."
-    puts ""
-    @category = gets.strip.downcase 
-    puts ""
-   API.fetch_meals_category(@category)
-    puts ""
-    meals = Category.find_by_category(@category).meals
+ def prompt_category 
+     puts ""
+     puts "Welcome to search for a meal by category! Enter a category."
+     puts ""
+     @category = gets.strip.downcase 
+     puts ""
+    API.fetch_meals_category(@category)
+     puts ""
+     meals = Category.find_by_category(@category).meals
     print_meals(meals)    
-    category_list 
-end 
+     category_list 
+ end 
 
-def category_list 
+ def category_list 
     prompt 
     inp = gets.strip.downcase
     if  inp.to_i > 0 && inp.to_i <= Category.find_by_category(@category).meals.length
     meal = Category.find_by_category(@category).meals[inp.to_i - 1]
-    # print_meal(meal)
-    # elsif !meal.instructions
      API.get_meal_details(meal)
      print_meal(meal)
     else
        print_meal(Meal.find(meal)[0])
     end
-    prompt
+  start  
     inp = gets.strip.downcase
 end
 puts "Goodbye!"
 end 
 
-
+ 
+ 
