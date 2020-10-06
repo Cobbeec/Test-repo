@@ -5,6 +5,7 @@
 class API  
 
 def self.fetch_meals(ingredient)
+  binding.pry 
     url = "https://www.themealdb.com/api/json/v1/1/filter.php?i=#{ingredient}"
     uri = URI(url) 
     response = Net::HTTP.get(uri)
