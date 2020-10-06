@@ -39,7 +39,6 @@ def self.get_meal_details(meal)
     data = JSON.parse(response)["meals"][0]
     meal.instructions = data["strInstructions"]
     meal.category = data[ "strCategory"]
-    meal.picture = data["strMealThumb"]
     data.keys.each do |k|
         meal.ingredients << data[k] if (k.include?("Ingredient")) && data[k] 
         meal.measures << data[k] if (k.include?("Measure")) && data[k] 
