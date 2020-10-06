@@ -20,7 +20,7 @@ class CLI
                  meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
                if !meal.instructions
                     API.get_meal_details(meal)
-                    print_meal(meal)
+                     print_meal(meal)
                else
                    print_meal(Meal.find(meal)[0])
                 end 
@@ -35,7 +35,6 @@ class CLI
          puts "Goodbye!"
 
     end
-
 
 
     def print_meals(ml)
@@ -57,9 +56,9 @@ def print_meal(meal)
     meal.ingredients.each_with_index do | ing, index | 
     puts "#{ing} - #{meal.measures[index]}"
 end 
-          puts "-------------------"
-          puts "#{meal.instructions}"
-          puts ""
+        #   puts "-------------------"
+        #   puts "#{meal.instructions}"
+        #   puts ""
 end 
 
 def prompt 
