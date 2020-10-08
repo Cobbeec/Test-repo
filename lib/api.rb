@@ -5,7 +5,6 @@
 class API  
 
 def self.fetch_meals(ingredient)
-  binding.pry 
     url = "https://www.themealdb.com/api/json/v1/1/filter.php?i=#{ingredient}"
     uri = URI(url) 
     response = Net::HTTP.get(uri)
@@ -15,7 +14,6 @@ def self.fetch_meals(ingredient)
     new_meal = Meal.new(name: m["strMeal"], meal_id: m["idMeal"], ingredient: ingredient)
     new_ingredient.meals << new_meal 
     end 
-    #binding.pry 
 end 
 
 def self.fetch_meals_category(category)
@@ -23,13 +21,11 @@ def self.fetch_meals_category(category)
       uri = URI(url) 
        response = Net::HTTP.get(uri)
        meals = JSON.parse(response)["meals"]
-    #    binding.pry 
        new_category = Category.new(category) 
         meals.each do |m| 
         new_meal = Meal.new(name: m["strMeal"] , meal_id: m["idMeal"], category: category)
         new_category.meals << new_meal 
           end 
-#          binding.pry 
   end 
 
      
@@ -44,7 +40,6 @@ def self.get_meal_details(meal)
         meal.ingredients << data[k] if (k.include?("Ingredient")) && data[k] 
         meal.measures << data[k] if (k.include?("Measure")) && data[k] 
     end 
-    #binding.pry 
 
 end 
 

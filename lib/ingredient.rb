@@ -13,7 +13,8 @@ class Ingredient
         @@all 
     end 
 
-    def self.find_by_ingredient(ingredient)
+    def self.find_by_ingredient(ingredient) 
         @@all.find{ |i| i.name == ingredient}
     end 
+
 end 

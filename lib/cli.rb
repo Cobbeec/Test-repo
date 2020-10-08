@@ -15,9 +15,11 @@ class CLI
                 prompt_ingredient 
                 @ingredient = gets.strip.downcase
                  puts ""
-                API.fetch_meals(@ingredient)
+                 if !Ingredient.find_by_ingredient(@ingredient) 
+                    API.fetch_meals(@ingredient)
+                 end 
                 puts ""
-                meals = Ingredient.find_by_ingredient(@ingredient).meals
+                meals = Ingredient.find_by_ingredient(@ingredient).meals 
                 print_meals(meals)
                 ingredient_list 
             elsif inp =='category'
@@ -29,18 +31,6 @@ class CLI
                 meals = Category.find_by_category(@category).meals
                 print_meals(meals)    
                 category_list 
-        #     elsif inp == 'list'
-        #          print_meals(Ingredient.find_by_ingredient(@ingredient).meals) 
-        #      elsif inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
-        #          meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
-        #        if !meal.instructions
-        #             API.get_meal_details(meal)
-        #              print_meal(meal)    
-        #        else
-        #            print_meal(Meal.find(meal)[0])
-        #         end 
-        #    elsif inp == 'ingredient'
-        #          prompt_ingredient
              else 
                  puts "I do not understand - please try again."
              end
@@ -50,6 +40,7 @@ class CLI
          puts "Goodbye!"
 
     end
+
 
 
     def print_meals(ml)
@@ -68,21 +59,17 @@ def print_meal(meal)
     puts "---------------"
     puts "#{meal.instructions}"
     puts "---------------"
+    contrastActiveBorder
     meal.ingredients.each_with_index do | ing, index | 
     puts "#{ing} - #{meal.measures[index]}"
 end 
-        #   puts "-------------------"
-        #   puts "#{meal.instructions}"
-        #   puts ""
 end 
 
 def prompt 
     puts ""
     puts ""
-    puts "Type a number listed to see more details."
     puts "OR type 'ingredient' to search for a new ingredient"
     puts "OR type 'category' to search by category."
-    # puts "OR type 'list' to see the list again"
     puts "OR type 'exit' to exit"
     puts ""
 end 
@@ -103,34 +90,27 @@ end
 
  def category_list 
     puts "Please select a number"
-    inp = gets.strip.downcase
-    
+    inp = gets.strip.downcase 
     until inp.to_i > 0 && inp.to_i <= Category.find_by_category(@category).meals.length
      puts "Invalid input. Please try again"
      inp = gets.strip.downcase
     end 
     meal = Category.find_by_category(@category).meals[inp.to_i - 1]
-     API.get_meal_details(meal)
+     API.get_meal_details(meal) if !meal.instructions 
      print_meal(meal)
 end
 
 def ingredient_list 
     puts "Please select a number"
-    inp = gets.strip.downcase
-    binding.pry 
+    inp = gets.strip.downcase 
     until inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
         puts "Invalid input. Please try again"
         inp = gets.strip.downcase
        end 
        meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
-        API.get_meal_details(meal)
-        print_meal(meal)
+        API.get_meal_details(meal) if !meal.instructions #check me 
+        print_meal(meal) 
+        
+         print_meal(Meal.find(meal)[0])  
+      end
     end 
-end 
-
- 
- 
-#builld it out so you don't recreate the objects. If you have already searched it you will have an empty array .empty? or you can 
-#use 
-#or you can use find which will return the first instance or it will return nil 
-#add it into your find_by_ingredient method 
