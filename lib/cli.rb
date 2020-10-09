@@ -48,7 +48,7 @@ class CLI
         else 
         puts ""
         puts ""
-        puts "Here are your meals with #{@ingredient}"
+        puts "Here are your meals!!" 
         ml.each_with_index do | m, i | 
             puts "#{i+1}. #{m.name}"
     end 
@@ -108,12 +108,12 @@ def ingredient_list
     puts "Please select a number"
     inp = gets.strip.downcase 
     until inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
-        puts "Invalid input. Please try again"
+        puts "Invalid input. Please try again or enter ctrl+c to exit."
         inp = gets.strip.downcase
        end 
        meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
         API.get_meal_details(meal)
-        print_meal(meal) 
+        # print_meal(meal) 
          print_meal(Meal.find(meal)[0])  
       end
 
