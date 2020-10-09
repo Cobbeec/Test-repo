@@ -11,7 +11,7 @@ class CLI
                 prompt_ingredient 
                 @ingredient = gets.strip.downcase
                  puts ""
-                 if !Ingredient.find_by_ingredient(@ingredient) 
+                  if !Ingredient.find_by_ingredient(@ingredient) 
                     API.fetch_meals(@ingredient)
                  end 
                 puts ""
@@ -38,14 +38,20 @@ class CLI
     end
 
 
+
     def print_meals(ml)
+        # binding.pry 
+        if ml.length == 0 
+            puts "Please try again! That ingredient or category is not in the database." 
+          start 
+        else 
+        puts ""
         puts ""
         puts "Here are your meals with #{@ingredient}"
-        puts ""
         ml.each_with_index do | m, i | 
             puts "#{i+1}. #{m.name}"
     end 
-      
+    end 
     end 
 
 def print_meal(meal) 
@@ -83,6 +89,7 @@ end
  end 
 
  def category_list 
+    puts ""
     puts "Please select a number"
     inp = gets.strip.downcase 
     until inp.to_i > 0 && inp.to_i <= Category.find_by_category(@category).meals.length
@@ -94,8 +101,9 @@ end
      print_meal(meal)
 end
 
+
 def ingredient_list 
-    puts "Please select a number"
+    puts "Please select a number 2"
     inp = gets.strip.downcase 
     until inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
         puts "Invalid input. Please try again"

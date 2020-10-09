@@ -7,10 +7,13 @@ def self.fetch_meals(ingredient)
     response = Net::HTTP.get(uri)
     meals = JSON.parse(response)["meals"]
     new_ingredient = Ingredient.new(ingredient)
+    if meals != nil 
+    # binding.pry 
     meals.each do |m| 
     new_meal = Meal.new(name: m["strMeal"], meal_id: m["idMeal"], ingredient: ingredient)
     new_ingredient.meals << new_meal 
     end 
+end 
 end 
 
 
@@ -20,12 +23,13 @@ def self.fetch_meals_category(category)
        response = Net::HTTP.get(uri)
        meals = JSON.parse(response)["meals"]
        new_category = Category.new(category) 
+       if meals != nil 
         meals.each do |m| 
         new_meal = Meal.new(name: m["strMeal"] , meal_id: m["idMeal"], category: category)
         new_category.meals << new_meal 
           end 
   end 
-
+end 
      
 def self.get_meal_details(meal) 
     url =  "https://www.themealdb.com/api/json/v1/1/lookup.php?i=#{meal.meal_id}"
@@ -42,3 +46,4 @@ def self.get_meal_details(meal)
 end 
 
 end 
+ 
