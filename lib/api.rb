@@ -39,8 +39,8 @@ class API
         meal.instructions = data["strInstructions"]
         meal.category = data["strCategory"]
         data.keys.each do |k|
-            meal.ingredients << data[k] if (k.include?("Ingredient")) && data[k] != ""
-            meal.measures << data[k] if (k.include?("Measure")) && data[k] != "" 
+            meal.ingredients << data[k] if (k.include?("Ingredient")) && data[k] != "" && data[k] != nil 
+            meal.measures << data[k] if (k.include?("Measure")) && data[k] != "" && data[k] != nil 
         end 
     
     end 
