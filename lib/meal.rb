@@ -1,5 +1,3 @@
-#This is where will create objects! 
-#keeps track of charities and turn our responses into objects 
 
 class Meal  
     attr_accessor :name, :meal_id, :ingredient , :instructions , :ingredients , :measures , :category 

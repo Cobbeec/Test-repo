@@ -1,7 +1,3 @@
-#handles our interactions with the user. 
-#It will contain all of the gets and puts to interact 
-#control flow of program 
-
 class CLI 
     def start 
         puts ""
@@ -42,7 +38,6 @@ class CLI
     end
 
 
-
     def print_meals(ml)
         puts ""
         puts "Here are your meals with #{@ingredient}"
@@ -59,7 +54,6 @@ def print_meal(meal)
     puts "---------------"
     puts "#{meal.instructions}"
     puts "---------------"
-    contrastActiveBorder
     meal.ingredients.each_with_index do | ing, index | 
     puts "#{ing} - #{meal.measures[index]}"
 end 
@@ -76,7 +70,7 @@ end
 
 def prompt_ingredient
     puts ""
-    puts "Search for meals by entering an ingredient"
+    puts "Welcome to search for a meal by ingredient! Enter an ingredient."
     puts ""
     
 end 
@@ -85,7 +79,7 @@ end
      puts ""
      puts "Welcome to search for a meal by category! Enter a category."
      puts ""
-     
+     puts "Some possible categories include: vegan, dessert, side, or beef."    
  end 
 
  def category_list 
@@ -108,7 +102,7 @@ def ingredient_list
         inp = gets.strip.downcase
        end 
        meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
-        API.get_meal_details(meal) if !meal.instructions #check me 
+        API.get_meal_details(meal) if !meal.instructions 
         print_meal(meal) 
         
          print_meal(Meal.find(meal)[0])  

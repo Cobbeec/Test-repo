@@ -6,7 +6,6 @@ class Ingredient
         @name = name 
         @meals = [] 
         @@all << self 
-
     end 
 
     def self.all 
