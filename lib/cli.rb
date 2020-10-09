@@ -91,10 +91,11 @@ end
 
  def category_list 
     puts ""
+    # binding.pry 
     puts "Please enter a number" 
     inp = gets.strip.downcase 
     until inp.to_i > 0 && inp.to_i <= Category.find_by_category(@category).meals.length
-     puts "Invalid input. Please try again"
+     puts "Invalid input. Please try again or enter ctrl+c to exit."
      inp = gets.strip.downcase
     end 
     meal = Category.find_by_category(@category).meals[inp.to_i - 1]
