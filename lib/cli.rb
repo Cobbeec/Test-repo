@@ -22,7 +22,9 @@ class CLI
                 prompt_category 
                 @category = gets.strip.downcase 
                 puts ""
+                if !Category.find_by_category(@category) 
                 API.fetch_meals_category(@category)
+                end 
                 puts ""
                 meals = Category.find_by_category(@category).meals
                 print_meals(meals)    
