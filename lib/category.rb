@@ -13,7 +13,7 @@ class Category
         @@all 
     end 
 
-     def self.find_by_category(category)
+     def self.find_by_category(category) 
           @@all.find{ |c| c.name == category}
       end 
 

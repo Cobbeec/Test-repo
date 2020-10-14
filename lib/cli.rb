@@ -39,15 +39,13 @@ class CLI
 
     end
 
-
     def print_meals(ml)
-        # binding.pry 
         if ml.length == 0 
             puts "Please try again! That ingredient or category is not in the database." 
-             start 
+        start 
         else 
         puts ""
-        puts ""
+        puts "" 
         puts "Here are your meals!!" 
         ml.each_with_index do | m, i | 
             puts "#{i+1}. #{m.name}"
@@ -62,7 +60,7 @@ def print_meal(meal)
     puts "#{meal.instructions}"
     puts "---------------"
     meal.ingredients.each_with_index do | ing, index | 
-    puts "#{ing} - #{meal.measures[index]}"
+    puts "#{ing} - #{meal.measures[index]}" 
 end 
 end 
 
@@ -91,30 +89,29 @@ end
 
  def category_list 
     puts ""
-    # binding.pry 
-    puts "Please enter a number" 
+    puts "Please select a number." 
     inp = gets.strip.downcase 
     until inp.to_i > 0 && inp.to_i <= Category.find_by_category(@category).meals.length
      puts "Invalid input. Please try again or enter ctrl+c to exit."
      inp = gets.strip.downcase
     end 
-    meal = Category.find_by_category(@category).meals[inp.to_i - 1]
+    meal = Category.find_by_category(@category).meals[inp.to_i - 1] 
      API.get_meal_details(meal) if !meal.instructions 
-     print_meal(meal)
+     print_meal(Meal.find(meal)[0])  
 end
 
 
 def ingredient_list 
-    puts "Please select a number"
+    puts ""
+    puts "Please select a number."
     inp = gets.strip.downcase 
-    until inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length
+    until inp.to_i > 0 && inp.to_i <= Ingredient.find_by_ingredient(@ingredient).meals.length 
         puts "Invalid input. Please try again or enter ctrl+c to exit."
         inp = gets.strip.downcase
        end 
        meal = Ingredient.find_by_ingredient(@ingredient).meals[inp.to_i - 1]
-        API.get_meal_details(meal)
-        # print_meal(meal) 
+        API.get_meal_details(meal)  if !meal.instructions 
          print_meal(Meal.find(meal)[0])  
       end
 
-    end 
+end 
